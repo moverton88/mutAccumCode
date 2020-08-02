@@ -10,7 +10,7 @@ export OUTDIR=$data_dir/reads/trim
 # Location of the trimmomatic jar file
 export TRIMMO=/home/mioverto/bin/Trimmomatic-0.36/trimmomatic-0.36.jar
 # Location of the script that runs trimmomatic using the plan files
-SCRIPT=/home/mioverto/code/trim/trimmomaticFastq_012720.sh
+script=/home/mioverto/code/trim/trimReads_v2.sh
 # Fasta of the Illumina adapter sequence to remove
 export ADAPTER=/home/mioverto/bin/Trimmomatic-0.36/adapters/NexteraPE-PE.fa
 # Directory to print output/errors
