@@ -1,6 +1,7 @@
----
-title: "Home"
----
+---  
+title: Home
+---  
+
 
 # SafeGenes Mutation Accumulation Experiment
 **Michael Overton**  
