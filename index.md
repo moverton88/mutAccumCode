@@ -1,8 +1,8 @@
 
 
 # SafeGenes Mutation Accumulation Experiment
-**Michael Overton**
-Kryazhimskiy Lab UCSD
+**Michael Overton**  
+Kryazhimskiy Lab UCSD  
    
    
 ## Project Background
