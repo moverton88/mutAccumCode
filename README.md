@@ -1,9 +1,11 @@
 ---
 layout: default
-title: Michael Overton Kryazhimskiy Lab UCSD
+title: Home
 ---
 
-# SafeGenes Mutation Accumulation Experiment   
+# SafeGenes Mutation Accumulation Experiment
+**Michael Overton**
+Kryazhimskiy Lab UCSD
    
    
 ## Project Background
