@@ -1,8 +1,4 @@
-# Introduction
-SafeGenes Mutation Accumulation Experiment   
-Michael Overton   
-Kryazhimskiy Lab   
-UCSD   
+# Introduction  
    
 ## Project Background
 Endonucleases, such as Cas-9, interact directly with DNA in target cells, often so that precise breaks can be introduced as a first step in altering sequence. Both the binding and cutting capacities of endonucleases have the potential to increase the rate of mutations not only at the target site, but throughout the genome. The change in mutation rates for Cas-9 transfected cells has not been well characterized, a critical step in improving the design of gene editing tools, such as gene drives. We introduced a Cas-9 based gene drive into yeast cells, and evolved them along mutation accumulation lineages to determine whether the presence of the entire drive and the Cas-9 protein alone can increase the rate of break repair recombination (gene conversion) and de novo mutations.
