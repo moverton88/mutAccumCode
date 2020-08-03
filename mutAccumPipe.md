@@ -10,7 +10,8 @@ Endonucleases, such as Cas-9, interact directly with DNA in target cells, often 
 ## Experiment Outline
 Clones from a cross between laboratory (BY) and vineyard (RM) yeast strains were tranformed with one of three treatments: a negative control containing empty constructs, a half-drive consisting of a Cas-9 plasmid and integrated empty guide RNA construct, and a full-drive that includes the Cas-9 plasmid and integrated guide RNA targeting the ADE2 locus. Successful construct clones were used to seed mutation accumulation lines as follows: 8 individual transformants were recovered for each treatment and used to seed a founding population, and isolated clones from each population seeded 10-12 replicate mutation accumulation lines. Each replicate was diluted and spread onto a YPD plate, allowed to grow 48h, and a single colony was diluted and spread on the next plate. This was repeated for ~880 generations. Final colonies were grown in liquid YPD and sequenced to ~50x coverage. 
 
-> *Sample Names* The naming convention in the analysis was changed from the original experiment to specify treatment (N=no drive, H=half-drive, F=full-drive), lineage (A-H), and replicate (01-13) information. The new names appear as N_A00. N for No Drive, A for the first lineage, and 01 for the final evolved clone in the first replicate. A 00 in the replicate position indicates the ancestral clone of that lineage.
+> *Sample Names*  
+The naming convention in the analysis was changed from the original experiment to specify treatment (N=no drive, H=half-drive, F=full-drive), lineage (A-H), and replicate (01-13) information. The new names appear as N_A00. N for No Drive, A for the first lineage, and 01 for the final evolved clone in the first replicate. A 00 in the replicate position indicates the ancestral clone of that lineage.
 
 
 
