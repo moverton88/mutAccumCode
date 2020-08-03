@@ -1,4 +1,6 @@
-
+---
+title: Home
+---
 
 # SafeGenes Mutation Accumulation Experiment   
    
