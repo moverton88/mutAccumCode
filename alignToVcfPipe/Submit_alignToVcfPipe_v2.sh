@@ -18,6 +18,8 @@ if [ ${ref} == RM ]; then
     export REFSEQ=/oasis/tscc/scratch/mioverto/data/refseq/RM_ref/RM_refseq_UCSD_2020_v3.fna
     elif [ ${ref} == BY ]; then
     export REFSEQ=/oasis/tscc/scratch/mioverto/data/refseq/BY_R64/S288C_R64_refseq.fna
+    elif [ ${ref} == BYm ]; then
+    export REFSEQ=/oasis/tscc/scratch/mioverto/data/refseq/BY_R64/S288C_R64_masked.fna
     else
     echo "reference does not exist"
 fi

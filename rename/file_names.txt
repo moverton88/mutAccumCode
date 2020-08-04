@@ -1,6 +1,0 @@
-file_names.txt
-foo1.txt.gz
-foo2.txt
-planfiles
-renameFastq_030620.py
-rename_fastq_bash_local_012720.sh
