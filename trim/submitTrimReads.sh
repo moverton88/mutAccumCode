@@ -4,6 +4,7 @@
 # Set dir variables
 seqRun=MAseq1
 readsRawDir=/oasis/tscc/scratch/mioverto/mutAccum/reads/${seqRun}/raw
+# readsTrimDir=${readsRawDir/raw/test}
 readsTrimDir=${readsRawDir/raw/trim}
 trimLogDir=/oasis/tscc/scratch/mioverto/log/trim
 
@@ -20,7 +21,7 @@ LOG=/oasis/tscc/scratch/mioverto/mutAccum/log/trim
 
 # Index to uniquely name log files.
 i=0
-for r1file in ${readsRawDir}/*00*R1*; do
+for r1file in ${readsRawDir}/*R1*; do
 #    echo $r1file
 #done
     i=$(($i+1))
@@ -29,7 +30,7 @@ for r1file in ${readsRawDir}/*00*R1*; do
     export tmp=$(basename "${R1COMP/_R1/}")
     export index=${tmp:0:5}
     echo submitting $index
-done
+# done
     qsub \
         -V \
         -o ${LOG}/trim_${i}_012720.out \

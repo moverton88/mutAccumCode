@@ -23,21 +23,20 @@ fi
 # ${INDEX} used for naming alignments. Output is sorted bam alignment
 # -X flag gives the maximum valid gap between paired reads
 # samtools view -h [include header] -b [bam output] -u [uncompressed .bam] | sort -m [memory allocated] -o [output file] -T [temp files]
-bowtie2 --rg-id ${index} --rg SM:${index} -p -I 100 -X 1000 -x ${REFPREFIX} -1 ${R1PFILE} -2 ${R2PFILE} -U "${R1UFILE},${R2UFILE}" \
+bowtie2 --rg-id ${index} --rg SM:${index} -p 4 -I 100 -X 1000 -x ${REFPREFIX} -1 ${R1PFILE} -2 ${R2PFILE} -U "${R1UFILE},${R2UFILE}" \
 | samtools view -h -b -u | samtools sort -m 10000000 -o ${bamRaw} -O bam -T ${bamDir}/temp_dir/${INDEX}
 
 # Remove duplicate reads
 java -jar $GATK MarkDuplicates \
 	--INPUT ${bamRaw} \
 	--OUTPUT ${bamDeDup} \
-	--METRICS_FILE ${METRICS}/${INDEX}.txt \
-    --REMOVE_DUPLICATES TRUE \
+	--METRICS_FILE ${metrics}/${INDEX}.txt \
 	--ASSUME_SORTED TRUE \
     --TMP_DIR ${bamDir}/temp_dir/${index}
 
 # index bam alignment
 samtools index ${bamDeDup}
 
-rm ${bamDir}/temp_dir/${index}
+# rm -r ${bamDir}/temp_dir/${index}
 
 

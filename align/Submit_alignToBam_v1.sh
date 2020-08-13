@@ -16,13 +16,13 @@ export ref=BYm
 
 
 if [ ${ref} == RM ]; then
-    export REFSEQ=/oasis/tscc/scratch/mioverto/data/refseq/RM_ref/RM_refseq_UCSD_2020_v3.fna
+    export REFSEQ=/oasis/tscc/scratch/mioverto/mutAccum/refseq/RM_ref/RM_refseq_UCSD_2020_v3.fna
     export bamDir=/oasis/tscc/scratch/mioverto/mutAccum/dualRef/RM_aligned/bam
     elif [ ${ref} == BY ]; then
-    export REFSEQ=/oasis/tscc/scratch/mioverto/data/refseq/BY_R64/S288C_R64_refseq.fna
+    export REFSEQ=/oasis/tscc/scratch/mioverto/mutAccum/refseq/BY_R64/S288C_R64_refseq.fna
     export bamDir=/oasis/tscc/scratch/mioverto/mutAccum/dualRef/BY_aligned/bam
     elif [ ${ref} == BYm ]; then
-    export REFSEQ=/oasis/tscc/scratch/mioverto/data/refseq/BY_R64/S288C_R64_masked.fna
+    export REFSEQ=/oasis/tscc/scratch/mioverto/mutAccum/refseq/BY_R64/S288C_R64_masked.fna
     export bamDir=/oasis/tscc/scratch/mioverto/mutAccum/ambiRef/bam
     else
     echo "reference does not exist"
@@ -30,16 +30,16 @@ fi
 
 export REFPREFIX=${REFSEQ/.fna/}
 
-export script=/home/mioverto/code/fullPipe/bamAlign_v1.sh
-export logDir=/oasis/tscc/scratch/mioverto/log/bamAlign_${ref}
+export script=/home/mioverto/code/align/alignToBam_v1.sh
+export logDir=/oasis/tscc/scratch/mioverto/mutAccum/log/alignToBam_${ref}
 export DATE=$(date +'%m_%d_%Y')
 
-export readsDir=/oasis/tscc/scratch/mioverto/mutAccum/reads/${seqRun}
-export metrics=${bamDir}/bam/picard_metrics
+export readsDir=/oasis/tscc/scratch/mioverto/mutAccum/reads/${seqRun}/trim
+export metrics=${bamDir}/picard_metrics
 
-# export R1FILE=${FQDIR}/H_A00_1_R1P.trimmed.fastq
+# export R1FILE=${readsDir}/H_A00_1_R1P.trimmed.fastq
 # Submitting jobs in a loop for files that have not been created yet
-for R1FILE in ${readsDir}/*00*_R1P*; do
+for R1FILE in ${readsDir}/*_R1P.trim*; do
     # export R1FILE=/oasis/tscc/scratch/mioverto/data/MAseq1/reads/trim/half-L100_1_R1P.trimmed.fastq
     export R1PFILE=${R1FILE}
     export R1UFILE=${R1FILE/R1P/R1U}
@@ -50,6 +50,7 @@ for R1FILE in ${readsDir}/*00*_R1P*; do
     export bamRaw=${bamDir}/raw/${index}.bam
     export bamDeDup=${bamDir}/DeDup/${index}.dm.bam
     echo "Submitting ${index}"
+#done
     qsub \
         -V \
         -N align_${index} \
