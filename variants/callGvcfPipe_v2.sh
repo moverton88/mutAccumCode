@@ -1,11 +1,19 @@
 #!/bin/bash
 #PBS -A svenkata
 #PBS -l nodes=1 
-#PBS -l walltime=3:00:00
+#PBS -l walltime=5:00:00
 
 
 PATH=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.252.b09-2.el7_8.x86_64/bin:$PATH
 GATK=/home/mioverto/bin/gatk_4/gatk-package-4.1.8.0-local.jar
+
+```
+bamDir=
+export bamDeDup=${bamDir}/F_E01_BYm.dm.bam
+export tmp=$(basename "${bamDeDup}" .dm.bam)
+export index=${tmp:0:5}_${ref}
+export gVCFout=${gVCFdir}/F_E04.g.vcf
+```
 
 # Start with alignment. Assumes renamed, trimmed fastq files and un-indexed reference fasta file
 

@@ -39,7 +39,8 @@ export metrics=${bamDir}/picard_metrics
 
 # export R1FILE=${readsDir}/H_A00_1_R1P.trimmed.fastq
 # Submitting jobs in a loop for files that have not been created yet
-for R1FILE in ${readsDir}/*_R1P.trim*; do
+
+for R1FILE in ${readsDir}/*A*_R1P.trim.fastq; do
     # export R1FILE=/oasis/tscc/scratch/mioverto/data/MAseq1/reads/trim/half-L100_1_R1P.trimmed.fastq
     export R1PFILE=${R1FILE}
     export R1UFILE=${R1FILE/R1P/R1U}
@@ -50,7 +51,7 @@ for R1FILE in ${readsDir}/*_R1P.trim*; do
     export bamRaw=${bamDir}/raw/${index}.bam
     export bamDeDup=${bamDir}/DeDup/${index}.dm.bam
     echo "Submitting ${index}"
-#done
+# done
     qsub \
         -V \
         -N align_${index} \

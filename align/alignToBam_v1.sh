@@ -30,7 +30,7 @@ bowtie2 --rg-id ${index} --rg SM:${index} -p 4 -I 100 -X 1000 -x ${REFPREFIX} -1
 java -jar $GATK MarkDuplicates \
 	--INPUT ${bamRaw} \
 	--OUTPUT ${bamDeDup} \
-	--METRICS_FILE ${metrics}/${INDEX}.txt \
+	--METRICS_FILE ${metrics}/${index}.txt \
 	--ASSUME_SORTED TRUE \
     --TMP_DIR ${bamDir}/temp_dir/${index}
 
