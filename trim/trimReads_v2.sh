@@ -18,6 +18,7 @@ echo Trimmomatic location: $TRIMMO
 
 if [[ ${R1COMP} =~ .*gz.* ]] 
 then
+
    echo "${R1COMP} is compressed, gunzipping."
    gunzip ${R1COMP}
    R1FILE=${R1COMP/.gz/}
@@ -37,7 +38,8 @@ then
 fi
 
 # Generate the output file paths for paired and unpaired files
-tmpR1=${R1FILE/raw/trim}
+fnmR1=${R1FILE}
+tmpR1=${trimDir}/$(basename ${fnmR1})
 
 trimR1P=${tmpR1/R1.fastq/R1P.trim.fastq}
 trimR2P=${tmpR1/R1.fastq/R2P.trim.fastq}
@@ -46,8 +48,8 @@ trimR2U=${tmpR1/R1.fastq/R2U.trim.fastq}
 # echo $trimR1P
 
 # Send Trimmomatic's logs to same folder; changing file ext later
-tmp=${R1FILE/$readsRawDir/$trimLogDir}
-trimLog=${tmp/R1.fastq/trimlog.txt}
+tmpLog=${logDir}/$(basename ${fnmR1})
+trimLog=${tmpLog/R1.fastq/trimlog.txt}
 
 
 

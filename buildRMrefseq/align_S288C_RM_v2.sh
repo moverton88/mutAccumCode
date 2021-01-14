@@ -8,9 +8,9 @@ module load bcftools
 module load bedtools
 
 # BY reference fasta
-REFIN=/oasis/tscc/scratch/mioverto/data/refseq/BY_R64/S288C_R64_refseq.fna
+REFIN=/home/mioverto/mutAccum/refseq/BY/S288C_R64_refseq.fna
 # Query RM scaffolds
-QRIN=/oasis/tscc/scratch/mioverto/data/refseq/RM_ref/UCI_scaffolds/RM11-1a_UCI_2019.fna
+QRIN=/home/mioverto/mutAccum/refseq/UCI_scaffolds/RM11-1a_UCI_2019.fna
 # REFDIC=/oasis/tscc/scratch/mioverto/data/refseq/RM_ref/S288C_R64_refseq.dict
 
 # Alignment outputs
@@ -19,10 +19,10 @@ BAMFILE=/oasis/tscc/scratch/mioverto/data/refseq/RM_ref/bam/RM_refseq.bam
 BAMCRCT=/oasis/tscc/scratch/mioverto/data/refseq/RM_ref/bam/RM_refseq.crct.bam
 
 # VCF of variant sites between BY and RM
-VCFOUT=/oasis/tscc/scratch/mioverto/data/refseq/POS_files/RMxBY_ref_bcf.vcf
-VCFCMP=/oasis/tscc/scratch/mioverto/data/refseq/POS_files/RMxBY_ref_HC.vcf.gz
+VCFOUT=/home/mioverto/mutAccum/POS_files/RMxBY_ref_bcf.vcf
+VCFCMP=/home/mioverto/mutAccum/POS_files/RMxBY_ref_HC.vcf.gz
 # RM reference sequence fasta
-REFOUT=/oasis/tscc/scratch/mioverto/data/refseq/RM_ref/RM_refseq_UCSD_2020_v3.fna
+REFOUT=/home/mioverto/mutAccum/refseq/RM_ref/RM_refseq_UCSD_2020_v3.fna
 
 #Switch to Java 1.8 for GATK v4.X to function correctly. The long dir name may have to be updated when java is updated on the cluster
 PATH=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.252.b09-2.el7_8.x86_64/bin:$PATH
@@ -88,9 +88,6 @@ java -jar $GATK FastaAlternateReferenceMaker  \
    -V $VCFOUT
 
 
-REFOUT=/oasis/tscc/scratch/mioverto/data/refseq/BY_R64/S288C_R64_masked.fna
-
-bedtools maskfasta -fi $REFIN -bed $VCFOUT -fo $REFOUT
 
 ```
 REFOUT=/oasis/tscc/scratch/mioverto/data/refseq/RM_ref/RM_refseq_UCSD_2020_v3.fna

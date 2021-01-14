@@ -4,8 +4,8 @@
 # Script to rename files
 # Requires a .csv table with unique entries for each .fastq file
 #!/bin/bash
-rename_dir=~/SK_Lab/PhD_Projects/mutAccum/code/rename
-plan_file=~/SK_Lab/PhD_Projects/mutAccum/code/rename/planfiles/rename_test1.txt
+rename_dir=/oasis/tscc/scratch/mioverto/mutAccum/reads/MAseq1
+plan_file=/home/mioverto/code/rename/masterPlanFile.csv
 cd $rename_dir
 
 IFS=,
@@ -15,6 +15,6 @@ do
     echo "searching for $old_name"
     var=$(find ./ -name "$old_name*")
     echo "found $var"
-    echo "will rename to $new_name.txt"
-    mv -n $var $new_name.txt # mv or rename
+    echo "will rename to $new_name.fastq"
+    # mv -n $var $new_name.txt # mv or rename
 done < "$plan_file"
