@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -A svenkata
+#PBS -A mioverto
 #PBS -l nodes=1 
 #PBS -l walltime=5:00:00
 

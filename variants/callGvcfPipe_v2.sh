@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -A svenkata
+#PBS -A mioverto
 #PBS -l nodes=1 
 #PBS -l walltime=5:00:00
 
@@ -7,25 +7,35 @@
 PATH=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.252.b09-2.el7_8.x86_64/bin:$PATH
 GATK=/home/mioverto/bin/gatk_4/gatk-package-4.1.8.0-local.jar
 
+
 ```
-bamDir=
-export bamDeDup=${bamDir}/F_E01_BYm.dm.bam
-export tmp=$(basename "${bamDeDup}" .dm.bam)
-export index=${tmp:0:5}_${ref}
-export gVCFout=${gVCFdir}/F_E04.g.vcf
+REFSEQ=$refseq
+    # GATK requires its own indexing prep
+refIdx=${REFSEQ/.fna/.fna.fai}
+refDict=${REFSEQ/.fna/.dict}
+if [ ! -f ${refIdx} ]; then
+    java -jar $GATK CreateSequenceDictionary \
+        -R $REFSEQ \
+        -O $refDict
+
+    module load samtools
+    samtools faidx $REFSEQ
+fi
+
 ```
+
 
 # Start with alignment. Assumes renamed, trimmed fastq files and un-indexed reference fasta file
 
 java -jar $GATK CollectAlignmentSummaryMetrics \
     -R $REFSEQ \
     -I ${bamDeDup} \
-    -O ${bamDeDup/.dm.bam/_algnMtrcs.txt}
+    -O ${bamAlgnMetrics}
 
 java -jar $GATK CollectRawWgsMetrics \
     -R $REFSEQ \
     -I ${bamDeDup} \
-    -O ${bamDeDup/.dm.bam/_wgsMtrcs.txt}
+    -O ${bamWGSmetrics}
     INCLUDE_BQ_HISTOGRAM=true
     
 # Call variants with HaplotypeCaller. -ERC generates a gVCF file

@@ -2,7 +2,7 @@
 
 # Script for submitting a set of fastq read files and a trimming script to the remote Cluster.
 # Set dir variables
-seqRun=MAseq1
+seqRun=MAseq3
 export rawDir=/oasis/tscc/scratch/mioverto/mutAccum/reads/${seqRun}
 # readsTrimDir=${readsRawDir/raw/test}
 export trimDir=/oasis/tscc/scratch/mioverto/mutAccum/reads/trim

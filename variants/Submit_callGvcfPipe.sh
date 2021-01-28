@@ -4,51 +4,67 @@
 # CHOOSE REFERENCE SEQUENCE ######################################
 # RM = RM reference
 # BY = BY reference
-export ref=BYm
+# BYm = BY masked reference
+export alignRef=BY
+export callRef=BY
 
-# export scrpt=/home/mioverto/code/fullPipe/alignToVcfPipe_v3.sh
-# export scrpt=/home/mioverto/code/fullPipe/callToVcfPipe.sh
-export scrpt=/home/mioverto/code/variants/callGvcfPipe_v2.sh
-export logDir=/oasis/tscc/scratch/mioverto/mutAccum/log/callGvcf
-export DATE=$(date +'%m_%d_%Y')
-# export BAMDIR=/oasis/tscc/scratch/mioverto/data/testIN
-# N_G00_BY.g.vcf
-if [ ${ref} == RM ]; then
-    export REFSEQ=/oasis/tscc/scratch/mioverto/mutAccum/refseq/BY_R64/S288C_R64_refseq.fna
-    export bamDir=/oasis/tscc/scratch/mioverto/mutAccum/dualRef/RM_aligned/bam/DeDup
-    export VCFdir=/oasis/tscc/scratch/mioverto/mutAccum/dualRef/RM_aligned/variants/bcf
-    export gVCFdir=/oasis/tscc/scratch/mioverto/mutAccum/dualRef/RM_aligned/variants/HC
-    elif [ ${ref} == BY ]; then
-    export REFSEQ=/oasis/tscc/scratch/mioverto/mutAccum/refseq/BY_R64/S288C_R64_refseq.fna
-    export bamDir=/oasis/tscc/scratch/mioverto/mutAccum/dualRef/BY_aligned/bam/DeDup
-    export VCFdir=/oasis/tscc/scratch/mioverto/mutAccum/dualRef/BY_aligned/variants/bcf
-    export gVCFdir=/oasis/tscc/scratch/mioverto/mutAccum/dualRef/BY_aligned/variants/HC
-    elif [ ${ref} == BYm ]; then
-    export REFSEQ=/oasis/tscc/scratch/mioverto/mutAccum/refseq/RM_ref/RM_refseq_UCSD_2020_v3.fna
-    #export REFSEQ=/oasis/tscc/scratch/mioverto/mutAccum/refseq/BY_R64/S288C_R64_refseq.fna
-    export bamDir=/oasis/tscc/scratch/mioverto/mutAccum/ambiRef/bam/DeDup
-    export VCFdir=""
-    export gVCFdir=/oasis/tscc/scratch/mioverto/mutAccum/ambiRef/variants/gVCFs/RM
+
+if [ ${alignRef} == BYm ] ; then
+    export bamDir=/oasis/tscc/scratch/mioverto/mutAccum/ambiRef/bam/
+    if [ ${callRef} == RM ]; then
+        export REFSEQ=/home/mioverto/mutAccum/refseq/RM/RM_refseq_UCSD_2020_v4.fna
+        export metricsDir=${bamDir}/depth_metrics/
+        export gVCFdir=/oasis/tscc/scratch/mioverto/mutAccum/ambiRef/variants/gVCFs/RM_call
+        elif [ ${callRef} == BY ]; then
+        export REFSEQ=/home/mioverto/mutAccum/refseq/BY/S288C_R64_refseq.fna
+        export metricsDir=${bamDir}/depth_metrics/
+        export gVCFdir=/oasis/tscc/scratch/mioverto/mutAccum/ambiRef/variants/gVCFs/BY_call
+        else
+        echo "reference does not exist"
+    fi
+    elif [ ${alignRef} == BY ]; then
+    export bamDir=/oasis/tscc/scratch/mioverto/mutAccum/dualRef/BY_aligned/bam
+    if [ ${callRef} == RM ]; then
+        export REFSEQ=/home/mioverto/mutAccum/refseq/RM/RM_refseq_UCSD_2020_v4.fna
+        export metricsDir=${bamDir}/depth_metrics/
+        export gVCFdir=/oasis/tscc/scratch/mioverto/mutAccum/dualRef/BY_aligned/variants/gVCFs/RM_call
+        elif [ ${callRef} == BY ]; then
+        export REFSEQ=/home/mioverto/mutAccum/refseq/BY/S288C_R64_refseq.fna
+        export metricsDir=${bamDir}/depth_metrics/
+        export gVCFdir=/oasis/tscc/scratch/mioverto/mutAccum/dualRef/BY_aligned/variants/gVCFs/BY_call
+        else
+        echo "reference does not exist"
+    fi
+    elif [ ${alignRef} == RM ]; then
+    export bamDir=/oasis/tscc/scratch/mioverto/mutAccum/dualRef/RM_aligned/bam
+    if [ ${callRef} == RM ]; then
+        export REFSEQ=/home/mioverto/mutAccum/refseq/RM/RM_refseq_UCSD_2020_v4.fna
+        export metricsDir=${bamDir}/depth_metrics/
+        export gVCFdir=/oasis/tscc/scratch/mioverto/mutAccum/dualRef/RM_aligned/variants/gVCFs/RM_call
+        elif [ ${callRef} == BY ]; then
+        export REFSEQ=/home/mioverto/mutAccum/refseq/BY/S288C_R64_refseq.fna
+        export metricsDir=${bamDir}/depth_metrics/
+        export gVCFdir=/oasis/tscc/scratch/mioverto/mutAccum/dualRef/RM_aligned/variants/gVCFs/BY_call
+        else
+        echo "reference does not exist"
+    fi
     else
     echo "reference does not exist"
 fi
 
-# export VCFDIR=/oasis/tscc/scratch/mioverto/data/variants/${ref}_aligned/${cllr}
-# export gVCFdir=/oasis/tscc/scratch/mioverto/mutAccum/ambiRef/variants/gVCFs
+export DATE=$(date +'%m_%d_%Y')
+export scrpt=/home/mioverto/code/variants/callGvcfPipe_v2.sh
+export logDir=/oasis/tscc/scratch/mioverto/mutAccum/log/callGvcf
 
-# export POSDIR=/oasis/tscc/scratch/mioverto/data/refseq/POS_files
-# export REFVCF=${POSDIR}/RMxBY_ref_bcf.vcf
-
-# export R1FILE=${FQDIR}/F_A01_1_R1P.trimmed.fastq
-# Submitting jobs in a loop for files that have not been created yet
-#s="$(seq -s " " 1 9)"
-for bamfile in ${bamDir}/N_C*dm.bam; do
+for bamfile in ${bamDir}/DeDup/*.dm.bam; do
     # export R1FILE=/oasis/tscc/scratch/mioverto/data/MAseq1/reads/trim/half-L100_1_R1P.trimmed.fastq
     export bamDeDup=${bamfile}
     export tmp=$(basename "${bamDeDup}" .dm.bam)
-    export index=${tmp:0:5}_$ref
+    export index=${tmp:0:5}_${callRef}
+    export bamAlgnMetrics=${metricsDir}/${index}.algn.txt
+    export bamWGSmetrics=${metricsDir}/${index}.wgs.txt
     export gVCFout=${gVCFdir}/${index}.g.vcf
-    export VCFout=${VCFdir}/${index}.vcf
+    # export VCFout=${VCFdir}/${index}.vcf
     echo "Submitting call gVCF ${index}"
 # done
     qsub \

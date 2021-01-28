@@ -1,22 +1,49 @@
 ##################################################################
+##################################################################
+# CHOOSE REFERENCE SEQUENCE ######################################
+# RM = RM reference
+# BY = BY reference
+# BYm = BY masked reference
+export alignRef=BY
+export callRef=BY
+
+if [ ${callRef} == RM ]; then
+    export refseq=/home/mioverto/mutAccum/refseq/RM/RM_refseq_UCSD_2020_v4.fna
+elif [ ${callRef} == BY ]; then
+    export refseq=/home/mioverto/mutAccum/refseq/BY/S288C_R64_refseq.fna
+else
+    echo "reference does not exist"
+fi
+
+if [ ${alignRef} == BYm ] ; then
+    export gVCFdir=/oasis/tscc/scratch/mioverto/mutAccum/ambiRef/variants/gVCFs/${callRef}_call
+    export lineVCFdir=/oasis/tscc/scratch/mioverto/mutAccum/ambiRef/variants/gVCFs/${callRef}_call/lineageVCFs
+    export finalVCFdir=/oasis/tscc/scratch/mioverto/mutAccum/ambiRef/variants/LOHvcfs/${callRef}_call
+    elif [ ${alignRef} == BY ] | [ ${alignRef} == RM ] ; then
+    export gVCFdir=/oasis/tscc/scratch/mioverto/mutAccum/dualRef/${alignRef}_aligned/variants/gVCFs/${callRef}_call
+    export lineVCFdir=/oasis/tscc/scratch/mioverto/mutAccum/dualRef/${alignRef}_aligned/variants/gVCFs/${callRef}_call/lineageVCFs
+    export finalVCFdir=/oasis/tscc/scratch/mioverto/mutAccum/dualRef/${alignRef}_aligned/variants/LOHvcfs/${callRef}_call
+    else
+    echo "reference does not exist"
+fi
 
 
-export scrpt=/home/mioverto/code/variants/lineageCallPipe.sh
+export scrpt=/home/mioverto/code/variants/lineageCallToVcf.sh
 export logDir=/oasis/tscc/scratch/mioverto/mutAccum/log/callGvcf
 export DATE=$(date +'%m_%d_%Y')
 
-export refseq=/oasis/tscc/scratch/mioverto/mutAccum/refseq/BY_R64/S288C_R64_refseq.fna
-export gVCFdir=/oasis/tscc/scratch/mioverto/mutAccum/ambiRef/variants/gVCFs
 
-export intervalFile=/oasis/tscc/scratch/mioverto/mutAccum/refseq/POS_files/RMxBY_ref_noMit.interval_list
+export intervalFile=/home/mioverto/mutAccum/POS_files/RMxBY_ref_noMit.interval_list
 
 
 # Submitting jobs in a loop for files that have not been created yet
-for gVCF in ${gVCFdir}/F_E00*.g.vcf; do
+# Wildcard must include only founder "00" ID, as the script bases 
+# lineage groups on this
+for gVCF in ${gVCFdir}/F*00*.g.vcf; do
     export index=$(basename "${gVCF}" .g.vcf)
     export lineage=${index:0:3}
-    export VCFout=${gVCFdir}/finalVCFs/${lineage}_RMxBY.vcf
-    echo "Submitting call gVCF ${gVCF}"
+    export VCFout=${finalVCFdir}/${lineage}_${alignRef}align_${callRef}call.vcf
+    echo Submitting call gVCF $(basename "${VCFout}")
 # done
     qsub \
         -V \
@@ -24,7 +51,7 @@ for gVCF in ${gVCFdir}/F_E00*.g.vcf; do
         -o ${logDir}/multi-VCF_${index}_${DATE}.out \
         -e ${logDir}/multi-gVCF_${index}_${DATE}.err \
         ${scrpt}
-done
+done 
 
 ```
 multi-VCF did not work: 

@@ -36,19 +36,22 @@ scp ~/SK_Lab/PhD_Projects/mutAccum/code/trim/trimReads_V2.sh mioverto@tscc-login
 scp ~/SK_Lab/PhD_Projects/mutAccum/code/align/submit_alignToBam_v1.sh mioverto@tscc-login.sdsc.edu:/home/mioverto/code/align
 scp ~/SK_Lab/PhD_Projects/mutAccum/code/align/alignToBam_v1.sh mioverto@tscc-login.sdsc.edu:/home/mioverto/code/align
 
+    ## - DeDuplicate reads separately if needed
+scp ~/SK_Lab/PhD_Projects/mutAccum/code/align/deDup_reads.sh mioverto@tscc-login.sdsc.edu:/home/mioverto/code/align
+
     ## - HaplotypeCaller gVCF call full genome VCFs for each individual, combine into multisample gVCF, and call final variants.
 scp -r ~/SK_Lab/PhD_Projects/mutAccum/code/variants/callGvcfPipe_v2.sh mioverto@tscc-login.sdsc.edu:/home/mioverto/code/variants
 
     ## - Combine gVCFs and GenotypegVCFs pipeline - combine individual gVCFS into multisample gVCF, and call final variants.
-scp -r ~/SK_Lab/PhD_Projects/mutAccum/code/variants/lineageCallPipe.sh mioverto@tscc-login.sdsc.edu:/home/mioverto/code/variants
+scp -r ~/SK_Lab/PhD_Projects/mutAccum/code/variants/lineageCallToVcf.sh mioverto@tscc-login.sdsc.edu:/home/mioverto/code/variants
 scp -r ~/SK_Lab/PhD_Projects/mutAccum/code/variants/submit_lineageCallPipe.sh mioverto@tscc-login.sdsc.edu:/home/mioverto/code/variants
 
     # RMxBY position file for filtering
 scp -r ~/SK_Lab/PhD_Projects/mutAccum/refseq/POS_files/RMxBY_variants.vcf \
-    mioverto@tscc-login.sdsc.edu:/oasis/tscc/scratch/mioverto/data/refseq/POS_files
+    mioverto@tscc-login.sdsc.edu:/home/mioverto/mutAccum/POS_files
 
 scp -r ~/SK_Lab/PhD_Projects/mutAccum/refseq/POS_files/RMxBY_ref_bcf_noMit.vcf \
-    mioverto@tscc-login.sdsc.edu:/oasis/tscc/scratch/mioverto/mutAccum/refseq/POS_files
+    mioverto@tscc-login.sdsc.edu:/home/mioverto/mutAccum/POS_files
 
 # - Call genotypes with bcftools
 scp -r ~/SK_Lab/PhD_Projects/mutAccum/code/variants/bcftools_call_VCF_021020.sh mioverto@tscc-login.sdsc.edu:/home/mioverto/code/variants
